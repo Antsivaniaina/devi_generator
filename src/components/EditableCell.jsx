@@ -24,7 +24,7 @@ const EditableCell = ({ value, onChange }) => {
     <motion.div
       whileHover={{ scale: 1.02 }}
       onClick={() => setIsEditing(true)}
-      className="cursor-pointer p-2 rounded hover:bg-gray-200"
+      className="cursor-pointer p-5 rounded hover:bg-gray-200"
     >
       {value}
     </motion.div>

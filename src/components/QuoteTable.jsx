@@ -14,7 +14,7 @@ const QuoteTable = () => {
           <TableRow>
             {headers.map((header, index) => (
               <TableCell key={index} align="center" className="font-semibold" style={{
-                border: '1px solid #dee2e6',
+                border: '1px solid #767676',
                 padding: '8px',
                 backgroundColor: 'white',
                 fontWeight: 'bold',
@@ -25,7 +25,7 @@ const QuoteTable = () => {
                 />
               </TableCell>
             ))}
-            <TableCell align="center">Image</TableCell>
+            <TableCell align="center" style={{ border: '1px solid #767676' }}>Image</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -39,7 +39,7 @@ const QuoteTable = () => {
             >
               {row.cells.map((cell, cellIndex) => (
                 <TableCell key={cellIndex} align="center" style={{
-                  border: '1px solid #dee2e6',
+                  border: '1px solid #767676',
                   padding: '8px',
                   backgroundColor: 'white'
                 }}>
@@ -50,7 +50,7 @@ const QuoteTable = () => {
                 </TableCell>
               ))}
               <TableCell style={{
-                border: '1px solid #dee2e6',
+                border: '1px solid #767676',
                 padding: '8px',
                 backgroundColor: 'white'
               }}>
