@@ -65,16 +65,15 @@ export const QuoteProvider = ({ children }) => {
     setNotes(value);
   };
 
-  const exportToPdf = async () => {
+  const exportToPdf = async (showPdfHeader = true, clientName = '', clientPhone = '') => {
 
     const elem = document.querySelector(".pdfmety");
     const element = elem.cloneNode(true);
-    // Apply PDF-specific styling
     element.style.padding = '5px';
     element.style.backgroundColor = 'white';
 
-    // Remove buttons and file inputs from PDF
-    element.querySelectorAll('input[type="file"], button').forEach((el) => el.remove());
+    // Remove buttons, file inputs, switch/form controls, and client inputs from PDF
+    element.querySelectorAll('input[type="file"], button, .MuiFormControlLabel-root, input[data-hide-in-pdf], .no-print').forEach((el) => el.remove());
 
     // Style the table for PDF
     const table = element.querySelector('table');
@@ -104,6 +103,48 @@ export const QuoteProvider = ({ children }) => {
       notes.style.border = '1px solid #dee2e6';
       notes.style.borderRadius = '4px';
     }
+    // === Ajout de l'entête PDF si demandé ===
+    if (showPdfHeader) {
+      const headerDiv = document.createElement('div');
+      headerDiv.style.display = 'flex';
+      headerDiv.style.justifyContent = 'center';
+      headerDiv.style.alignItems = 'flex-start';
+      headerDiv.style.marginBottom = '16px';
+      headerDiv.style.gap = '40px'; // Réduit l'écart entre les blocs
+
+      // Bloc gauche (Atelier)
+      const leftDiv = document.createElement('div');
+      leftDiv.style.border = '1px solid #000';
+      leftDiv.style.padding = '10px 18px';
+      leftDiv.style.fontSize = '13px';
+      leftDiv.style.fontFamily = 'Arial, sans-serif';
+      leftDiv.innerHTML = `
+        <div style="font-weight:bold;font-size:15px;">ATELIER DINAH MET-ALU</div>
+        <div>Siège Bypass, Alasora</div>
+        <div>Contact : 034 67 144 80</div>
+        <div>FB : DINAH Met-alu</div>
+      `;
+
+      // Bloc droit (Client)
+      const rightDiv = document.createElement('div');
+      rightDiv.style.textAlign = 'right';
+      rightDiv.style.fontFamily = 'Arial, sans-serif';
+      rightDiv.innerHTML = `
+        <div style="font-weight:bold;font-size:22px;color:#1976d2;">DEVIS</div>
+        <div style="margin-top:8px;font-size:13px;">
+          <div>Destiné à :</div>
+          <div style="font-weight:bold;">${clientName || 'Nom du client'}</div>
+          <div>${clientPhone ? `Contact : ${clientPhone}` : ''}</div>
+        </div>
+      `;
+
+      headerDiv.appendChild(leftDiv);
+      headerDiv.appendChild(rightDiv);
+
+      // Insérer l'entête avant le contenu principal
+      element.insertBefore(headerDiv, element.firstChild);
+    }
+
     const generateFileName = () => {
       const now = new Date();
       const day = now.getDate().toString().padStart(2, '0');
