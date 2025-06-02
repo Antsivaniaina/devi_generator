@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Button, Stack, Switch, FormControlLabel, TextField, Box } from '@mui/material';
+import { Button, Stack, Switch, FormControlLabel, TextField, Box, Checkbox } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import NoteIcon from '@mui/icons-material/Note';
@@ -12,13 +12,15 @@ const ActionButtons = ({ onToggleNotes }) => {
   const [showPdfHeader, setShowPdfHeader] = useState(true);
   const [clientName, setClientName] = useState('');
   const [clientPhone, setClientPhone] = useState('');
+  const [showNifStat, setShowNifStat] = useState(false);
 
   const handleSwitchChange = (event) => {
     setShowPdfHeader(event.target.checked);
+    if (!event.target.checked) setShowNifStat(false);
   };
 
   const handleExportPdf = () => {
-    exportToPdf(showPdfHeader, clientName, clientPhone);
+    exportToPdf(showPdfHeader, clientName, clientPhone, showNifStat);
   };
 
   return (
@@ -84,6 +86,19 @@ const ActionButtons = ({ onToggleNotes }) => {
               InputProps={{
                 inputProps: { 'data-hide-in-pdf': true }
               }}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={showNifStat}
+                  onChange={e => setShowNifStat(e.target.checked)}
+                  color="primary"
+                  className="no-print"
+                  inputProps={{ 'data-hide-in-pdf': true }}
+                />
+              }
+              label="Afficher NIF & Stat"
+              sx={{ ml: 1 }}
             />
           </Box>
         )}

@@ -65,7 +65,7 @@ export const QuoteProvider = ({ children }) => {
     setNotes(value);
   };
 
-  const exportToPdf = async (showPdfHeader = true, clientName = '', clientPhone = '') => {
+  const exportToPdf = async (showPdfHeader = true, clientName = '', clientPhone = '', showNifStat = false) => {
 
     const elem = document.querySelector(".pdfmety");
     const element = elem.cloneNode(true);
@@ -107,10 +107,12 @@ export const QuoteProvider = ({ children }) => {
     if (showPdfHeader) {
       const headerDiv = document.createElement('div');
       headerDiv.style.display = 'flex';
-      headerDiv.style.justifyContent = 'center';
+      headerDiv.style.width = '100%';
+      headerDiv.style.boxSizing = 'border-box';
+      headerDiv.style.justifyContent = 'center'; // Centre les blocs horizontalement
       headerDiv.style.alignItems = 'flex-start';
       headerDiv.style.marginBottom = '16px';
-      headerDiv.style.gap = '40px'; // Réduit l'écart entre les blocs
+      headerDiv.style.gap = '120px'; // Augmente l'espace entre les deux blocs
 
       // Bloc gauche (Atelier)
       const leftDiv = document.createElement('div');
@@ -118,22 +120,31 @@ export const QuoteProvider = ({ children }) => {
       leftDiv.style.padding = '10px 18px';
       leftDiv.style.fontSize = '13px';
       leftDiv.style.fontFamily = 'Arial, sans-serif';
+      leftDiv.style.flex = '0 0 auto';
       leftDiv.innerHTML = `
         <div style="font-weight:bold;font-size:15px;">ATELIER DINAH MET-ALU</div>
         <div>Siège Bypass, Alasora</div>
         <div>Contact : 034 67 144 80</div>
         <div>FB : DINAH Met-alu</div>
+        ${showNifStat ? `
+          <div style="margin-top:4px;">
+            <span style="font-size:12px;font-weight:bold;">NIF: 4000687225</span><br/>
+            <span style="font-size:12px;font-weight:bold;">STAT: 25111-11-2022 0 1092</span>
+          </div>
+        ` : ''}
       `;
 
       // Bloc droit (Client)
       const rightDiv = document.createElement('div');
-      rightDiv.style.textAlign = 'right';
+      rightDiv.style.textAlign = 'center';
       rightDiv.style.fontFamily = 'Arial, sans-serif';
+      rightDiv.style.marginLeft = '80px';
+      rightDiv.style.flex = '0 0 auto';
       rightDiv.innerHTML = `
         <div style="font-weight:bold;font-size:22px;color:#1976d2;">DEVIS</div>
         <div style="margin-top:8px;font-size:13px;">
           <div>Destiné à :</div>
-          <div style="font-weight:bold;">${clientName || 'Nom du client'}</div>
+          <div style="font-weight:bold;text-transform:uppercase;">${(clientName || 'Nom du client').toUpperCase()}</div>
           <div>${clientPhone ? `Contact : ${clientPhone}` : ''}</div>
         </div>
       `;
@@ -141,7 +152,6 @@ export const QuoteProvider = ({ children }) => {
       headerDiv.appendChild(leftDiv);
       headerDiv.appendChild(rightDiv);
 
-      // Insérer l'entête avant le contenu principal
       element.insertBefore(headerDiv, element.firstChild);
     }
 
