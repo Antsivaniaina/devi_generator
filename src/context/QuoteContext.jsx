@@ -73,7 +73,7 @@ export const QuoteProvider = ({ children }) => {
     element.style.backgroundColor = 'white';
 
     // Remove buttons, file inputs, switch/form controls, and client inputs from PDF
-    element.querySelectorAll('input[type="file"], button, .MuiFormControlLabel-root, input[data-hide-in-pdf], .no-print').forEach((el) => el.remove());
+    element.querySelectorAll('input[type="file"], button, .MuiFormControlLabel-root, input[data-hide-in-pdf], .no-print, #notes-input').forEach((el) => el.remove());
 
     // Style the table for PDF
     const table = element.querySelector('table');

@@ -32,12 +32,21 @@ export function exportToPdf(element) {
     }
 
     // Style notes section
-    const notes = pdfContent.querySelector('#notes');
-    if (notes) {
-        notes.style.marginTop = '20px';
-        notes.style.padding = '15px';
-        notes.style.border = '1px solid #dee2e6';
-        notes.style.borderRadius = '4px';
+    const notesPaper = pdfContent.querySelector('#notes');
+    if (notesPaper) {
+        notesPaper.style.marginTop = '20px';
+        notesPaper.style.padding = '15px';
+        notesPaper.style.border = '1px solid #dee2e6';
+        notesPaper.style.borderRadius = '4px';
+        const notesPreview = notesPaper.querySelector('#notes-preview');
+        if (notesPreview) {
+            notesPreview.style.display = 'block';
+            notesPreview.style.marginTop = '16px';
+            notesPreview.style.whiteSpace = 'pre-line';
+            notesPreview.style.color = '#555';
+            notesPreview.style.fontSize = '1rem';
+        }
+        notesPaper.querySelectorAll('.MuiFormControl-root').forEach(el => el.remove());
     }
 
     const opt = {

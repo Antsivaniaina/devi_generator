@@ -13,12 +13,23 @@ const QuoteTable = () => {
         <TableHead>
           <TableRow>
             {headers.map((header, index) => (
-              <TableCell key={index} align="center" className="font-semibold" style={{
-                border: '1px solid #767676',
-                padding: '8px',
-                backgroundColor: 'white',
-                fontWeight: 'bold',
-              }}>
+              <TableCell
+                key={index}
+                align="center"
+                className="font-semibold"
+                style={{
+                  border: '1px solid #767676',
+                  padding: '8px',
+                  backgroundColor: 'white',
+                  fontWeight: 'bold',
+                  width:
+                    header === 'Nombre'
+                      ? '60px'
+                      : header === 'Prix Total Aluminium'
+                        ? '220px'
+                        : undefined,
+                }}
+              >
                 <EditableCell
                   value={header}
                   onChange={(value) => updateCell('headers', index, value)}
@@ -38,11 +49,21 @@ const QuoteTable = () => {
               transition={{ duration: 0.3 }}
             >
               {row.cells.map((cell, cellIndex) => (
-                <TableCell key={cellIndex} align="center" style={{
-                  border: '1px solid #767676',
-                  padding: '8px',
-                  backgroundColor: 'white'
-                }}>
+                <TableCell
+                  key={cellIndex}
+                  align="center"
+                  style={{
+                    border: '1px solid #767676',
+                    padding: '8px',
+                    backgroundColor: 'white',
+                    width:
+                      headers[cellIndex] === 'Nombre'
+                        ? '60px'
+                        : headers[cellIndex] === 'Prix Total Aluminium'
+                          ? '220px'
+                          : undefined,
+                  }}
+                >
                   <EditableCell
                     value={cell}
                     onChange={(value) => updateCell('rows', rowIndex, value, cellIndex)}
