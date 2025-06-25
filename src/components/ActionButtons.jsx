@@ -25,6 +25,7 @@ const ActionButtons = ({ onToggleNotes }) => {
 
   return (
     <Box
+      data-hide-in-pdf // Ajouté pour masquer ce bloc dans le PDF
       sx={{
         display: 'flex',
         flexDirection: { xs: 'column', md: 'row' },
@@ -41,6 +42,7 @@ const ActionButtons = ({ onToggleNotes }) => {
       }}
     >
       <Box
+        data-hide-in-pdf // Ajouté pour masquer ce bloc dans le PDF
         sx={{
           display: 'flex',
           flexDirection: 'column',
